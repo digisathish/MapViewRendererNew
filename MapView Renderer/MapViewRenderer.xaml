@@ -1,0 +1,222 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="htmlString" mva:VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="htmlString_1"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:si="clr-namespace:System.IO;assembly=mscorlib"
+ xmlns:sn="clr-namespace:System.Net;assembly=System"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Net</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Core</AssemblyReference>
+      <AssemblyReference>UiPath.Core.Activities</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+      <AssemblyReference>UiPath.IntelligentOCR</AssemblyReference>
+      <AssemblyReference>UiPath.Python</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>UiPath.Cryptography</AssemblyReference>
+      <AssemblyReference>UiPath.Java.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Word</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="Map View Renderer WF " sap2010:WorkflowViewState.IdRef="Sequence_8">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="sn:WebClient" Default="[new WebClient]" Name="TemplateDownload" />
+      <Variable x:TypeArguments="x:String" Name="HTMLTemplateAsString" />
+      <Variable x:TypeArguments="sd:DataTable" Name="DtCsv" />
+      <Variable x:TypeArguments="x:String" Name="FilePath" />
+      <Variable x:TypeArguments="x:Int32" Name="RowCount" />
+      <Variable x:TypeArguments="x:Int32" Name="HtmlNo" />
+      <Variable x:TypeArguments="x:String" Name="OutputFilePath" />
+      <Variable x:TypeArguments="x:String" Name="InputFilePath" />
+      <Variable x:TypeArguments="x:String" Name="TemplatePath" />
+      <Variable x:TypeArguments="x:Int32" Name="CoordLimitInHTML" />
+      <Variable x:TypeArguments="x:String" Default="P:\INBLD\Digital\RPA\07-Others\UiPath Hackathon\MapView Renderer\Config\ConfigFile.xlsx" Name="ConfigFilePath" />
+      <Variable x:TypeArguments="sd:DataTable" Name="DtConfig" />
+      <Variable x:TypeArguments="x:String" Name="GoogleAPI" />
+      <Variable x:TypeArguments="x:Boolean" Name="FlagVar" />
+    </Sequence.Variables>
+    <TryCatch DisplayName="Map View Renderer WF " sap2010:WorkflowViewState.IdRef="TryCatch_1">
+      <TryCatch.Try>
+        <Sequence DisplayName="Main" sap2010:WorkflowViewState.IdRef="Sequence_1">
+          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke ConfigRead workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="SubCodes\ConfigRead.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <OutArgument x:TypeArguments="x:Int32" x:Key="CoordLimitInHTML">[CoordLimitInHTML]</OutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="GoogleAPI">[GoogleAPI]</OutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="TemplatePath">[TemplatePath]</OutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="InputFilePath">[InputFilePath]</OutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="OutputFilePath">[OutputFilePath]</OutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="FilePath">[FilePath]</OutArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="ConfigFilePath">[ConfigFilePath]</InArgument>
+              <OutArgument x:TypeArguments="sd:DataTable" x:Key="DtConfig">[DtConfig]</OutArgument>
+              <OutArgument x:TypeArguments="x:Boolean" x:Key="FlagVar">[FlagVar]</OutArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+          <If Condition="[FlagVar=false]" DisplayName="Check If config file is not present" sap2010:WorkflowViewState.IdRef="If_6">
+            <If.Then>
+              <Throw DisplayName="Throw File Not found Exception" Exception="[new FileNotFoundException(&quot;Config File Not Found&quot;)]" sap2010:WorkflowViewState.IdRef="Throw_3" />
+            </If.Then>
+          </If>
+          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke ReadInput workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="SubCodes\ReadInput.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <OutArgument x:TypeArguments="x:Int32" x:Key="RowCount">[RowCount]</OutArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="InputFilePath">[InputFilePath]</InArgument>
+              <OutArgument x:TypeArguments="sd:DataTable" x:Key="DtCsv">[DtCsv]</OutArgument>
+              <OutArgument x:TypeArguments="x:Boolean" x:Key="FlagVar">[FlagVar]</OutArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+          <If Condition="[FlagVar=false]" DisplayName="Check If input file is not present" sap2010:WorkflowViewState.IdRef="If_7">
+            <If.Then>
+              <Throw DisplayName="Throw File Not found Exception" Exception="[new FileNotFoundException(&quot;Input File Not Found&quot;)]" sap2010:WorkflowViewState.IdRef="Throw_4" />
+            </If.Then>
+          </If>
+          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Business Logic workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="SubCodes\HTMLLogic.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <InArgument x:TypeArguments="x:Int32" x:Key="CoordLimitInHTML">[CoordLimitInHTML]</InArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="HTMLTemplateAsString">[HTMLTemplateAsString]</OutArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="FilePath">[FilePath]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="GoogleAPI">[GoogleAPI]</InArgument>
+              <OutArgument x:TypeArguments="x:Int32" x:Key="HtmlNo">[HtmlNo]</OutArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="OutputFilePath">[OutputFilePath]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="TemplatePath">[TemplatePath]</InArgument>
+              <InArgument x:TypeArguments="sn:WebClient" x:Key="TemplateDownload">[TemplateDownload]</InArgument>
+              <InArgument x:TypeArguments="sd:DataTable" x:Key="DtCsv">[DtCsv]</InArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+          <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Info" Message="[&quot;Please find the output HTML files here: &quot;+OutputFilePath]" />
+        </Sequence>
+      </TryCatch.Try>
+      <TryCatch.Catches>
+        <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+          <ActivityAction x:TypeArguments="s:Exception">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+            </ActivityAction.Argument>
+            <ui:LogMessage DisplayName="Log message for Exception Handling" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Error" Message="[exception.Message.ToString]" />
+          </ActivityAction>
+        </Catch>
+        <Catch x:TypeArguments="si:FileNotFoundException" sap2010:WorkflowViewState.IdRef="Catch`1_2">
+          <ActivityAction x:TypeArguments="si:FileNotFoundException">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="si:FileNotFoundException" Name="exception" />
+            </ActivityAction.Argument>
+            <ui:LogMessage DisplayName="Log message for Exception Handling" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Error" Message="[exception.Message.ToString]" />
+          </ActivityAction>
+        </Catch>
+      </TryCatch.Catches>
+    </TryCatch>
+    <sads:DebugSymbol.Symbol>d1VQOlxJTkJMRFxEaWdpdGFsXFJQQVwwNy1PdGhlcnNcVWlQYXRoIEhhY2thdGhvblxNYXBWaWV3IFJlbmRlcmVyXE1hcFZpZXdSZW5kZXJlci54YW1sL0kDoAEOAgEBSzhLSQIBA1U0VY0BAgECWgWeARACAQRcCYoBFAIBC5IBDZIBswECAQiaAQ2aAbMBAgEFXQtpIwIBN2oLbhACATJvC3YjAgEodwt7EAIBI3wLiAEjAgEPiQELiQHCAQIBDJIBkgGSAbABAgEJmgGSAZoBsAECAQZlTWVdAgFJZ0hnUQIBR19PX2ECAUViTWJcAgFDYUxhWgIBQWNOY14CAT9mTGZWAgE9YElgVAIBO129AV3XAQIBOmRIZFICAThqGWoqAgEzbA9sugECATV0SHRRAgEwc0lzUAIBLnJMclsCASxxR3FRAgEqb7wBb9UBAgEpdxl3KgIBJHkPebkBAgEmhQFThQFlAgEhhgFIhgFPAgEffk5+YAIBHYQBS4QBWQIBG4MBTYMBXQIBGYIBRYIBTQIBF4EBSIEBUwIBFXzBAXzaAQIBFIABR4ABUQIBEn9Uf2oCARCJAXiJAb8BAgENbE1sjQECATZ5TXmMAQIBJw==</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_1" sap:VirtualizedContainerService.HintSize="464,87" />
+      <sap2010:ViewStateData Id="Throw_3" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="If_6" sap:VirtualizedContainerService.HintSize="464,208">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_2" sap:VirtualizedContainerService.HintSize="464,87" />
+      <sap2010:ViewStateData Id="Throw_4" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="If_7" sap:VirtualizedContainerService.HintSize="464,208">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_4" sap:VirtualizedContainerService.HintSize="464,87" />
+      <sap2010:ViewStateData Id="LogMessage_8" sap:VirtualizedContainerService.HintSize="464,91" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="486,1092">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="LogMessage_1" sap:VirtualizedContainerService.HintSize="314,91" />
+      <sap2010:ViewStateData Id="Catch`1_1" sap:VirtualizedContainerService.HintSize="490,21">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="LogMessage_7" sap:VirtualizedContainerService.HintSize="314,91" />
+      <sap2010:ViewStateData Id="Catch`1_2" sap:VirtualizedContainerService.HintSize="490,21">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TryCatch_1" sap:VirtualizedContainerService.HintSize="504,1341" />
+      <sap2010:ViewStateData Id="Sequence_8" sap:VirtualizedContainerService.HintSize="526,1465">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="htmlString_1" sap:VirtualizedContainerService.HintSize="566,1865" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

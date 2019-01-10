@@ -1,0 +1,14 @@
+{
+  "name": "MapView Renderer",
+  "description": "Project",
+  "main": "MapViewRenderer.xaml",
+  "dependencies": {},
+  "excludedData": [
+    "Private:*",
+    "*password*"
+  ],
+  "toolVersion": "18.2",
+  "projectVersion": "1.0.6840.22803",
+  "packOptions": {},
+  "runtimeOptions": {}
+}

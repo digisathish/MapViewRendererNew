@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Map Renderer</title>
+    <style>
+      
+        .grid-container {
+            display: grid;
+            grid-template-columns: auto auto;
+            background-color: white;
+            padding: 30px;
+            height: 500px;
+        }
+        h2 {
+            padding: 30px;
+               }
+
+        .grid-item {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            font-size: 30px;
+            text-align: center;
+        }
+
+       html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    <script>
+        /*
+         * Click the map to set a new location for the Street View camera.
+         */
+
+        var maps=[];
+        var panoramas=[];
+        var elms;
+        var locArray = [{lat:51.515263,lng:-0.071766},{lat:51.514301,lng:-0.071021},{lat:51.513914,lng:-0.070665},{lat:51.510823,lng:-0.068538},{lat:51.516901,lng:-0.049817},{lat:51.519962,lng:-0.047913},{lat:51.521261,lng:-0.046495},{lat:51.568177,lng:-0.031139},{lat:51.580338,lng:-0.013796},{lat:51.59545,lng:0.003424}]
+        var markers = [];
+        var iter;
+        var eventId;
+        var initCall = 0;
+
+        function initMap() {
+
+            for (var i = 0; i < locArray.length; i++) {
+                iter = i;
+                var container = document.createElement('div');
+                container.className = "grid-container";
+                var divElemMap = document.createElement('div');
+                divElemMap.id = "map-" + i;
+                divElemMap.className = "map-view";
+                divElemMap.className = "grid-item";
+                //divElemMap.onclick("identifyId");
+                divElemMap.addEventListener("click", identifyId);
+
+                var info = document.createElement('h2');
+                info.className = "lat-long-info";
+                info.innerHTML = "Latitude: " + locArray[i].lat + " Longitude: " + locArray[i].lng;
+                document.body.appendChild(info); 
+                
+                container.appendChild(divElemMap);
+                var divElemPano = document.createElement('div');
+                divElemPano.id = "pano-" + i;
+                divElemPano.className = "map-view";
+                divElemPano.className = "grid-item";
+                container.appendChild(divElemPano);
+                document.body.appendChild(container);               
+
+                var sv = new google.maps.StreetViewService();
+
+                panoramas[i] = new google.maps.StreetViewPanorama(document.getElementById('pano-'+i));
+
+                // Set up the map.
+                maps[i] = new google.maps.Map(document.getElementById('map-'+i), {
+                    center: locArray[i],
+                    zoom: 16,
+                    streetViewControl: false
+                });
+
+                // Set the initial Street View camera to the center of the map
+                sv.getPanorama({ location: locArray[i], radius: 50 }, processSVData);
+
+                // Look for a nearby Street View panorama when the map is clicked.
+                // getPanorama will return the nearest pano when the given
+                // radius is 50 meters or less.
+                maps[i].addListener('click', function (event) {
+                    sv.getPanorama({ location: event.latLng, radius: 50 }, processSVData);
+                });
+            }
+          }
+
+        function processSVData(data, status) {
+            if (status === 'OK') {
+                markers[initCall] = new google.maps.Marker({
+                    position: data.location.latLng,
+                    map: maps[initCall],
+                    title: data.location.description
+                });
+
+                panoramas[initCall].setPano(data.location.pano);
+                panoramas[initCall].setPov({
+                    heading: 270,
+                    pitch: 0
+                });
+                panoramas[initCall].setVisible(true);
+
+                markers[initCall].addListener('click', function () {
+                    var markerPanoID = data.location.pano;
+                    panoramas[initCall].setPano(markerPanoID);
+                    panoramas[initCall].setPov({
+                        heading: 270,
+                        pitch: 0
+                    });
+                    panoramas[initCall].setVisible(true);
+                });
+
+            } else {
+                console.error('Street View data not found for this location.');
+            }
+            initCall = initCall + 1;
+        }
+
+        function identifyId(event) {
+            var id = event.currentTarget.id;
+            var num = id.split("-")[1];
+            initCall = num;
+            iter = num;
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJ2PScYzfCUWf5k7RIirDJJVwdHunWBi4&callback=initMap">
+    </script>
+</body>
+</html>

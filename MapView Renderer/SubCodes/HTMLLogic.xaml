@@ -1,0 +1,269 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="BusinessLogic"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:sn="clr-namespace:System.Net;assembly=System"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="CoordLimitInHTML" Type="InArgument(x:Int32)" />
+    <x:Property Name="HTMLTemplateAsString" Type="OutArgument(x:String)" />
+    <x:Property Name="FilePath" Type="InArgument(x:String)" />
+    <x:Property Name="GoogleAPI" Type="InArgument(x:String)" />
+    <x:Property Name="HtmlNo" Type="OutArgument(x:Int32)" />
+    <x:Property Name="OutputFilePath" Type="InArgument(x:String)" />
+    <x:Property Name="TemplatePath" Type="InArgument(x:String)" />
+    <x:Property Name="TemplateDownload" Type="InArgument(sn:WebClient)" />
+    <x:Property Name="DtCsv" Type="InArgument(sd:DataTable)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>BusinessLogic_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>UiPath.Excel.Activities</x:String>
+      <x:String>UiPath.CSV.Activities</x:String>
+      <x:String>UiPath.Excel</x:String>
+      <x:String>UiPath.CSV</x:String>
+      <x:String>UiPath.Orchestrator.Client</x:String>
+      <x:String>UiPath.Orchestrator.Client.Models</x:String>
+      <x:String>UiPath.Word</x:String>
+      <x:String>UiPath.Credentials.Activities</x:String>
+      <x:String>UiPath.Database.Activities</x:String>
+      <x:String>UiPath.Mail.Activities</x:String>
+      <x:String>UiPath.Mail.Exchange.Activities</x:String>
+      <x:String>UiPath.Mail.IMAP.Activities</x:String>
+      <x:String>UiPath.Mail.Outlook.Activities</x:String>
+      <x:String>UiPath.Mail.POP3.Activities</x:String>
+      <x:String>UiPath.Mail.SMTP.Activities</x:String>
+      <x:String>UiPath.PDF.Activities</x:String>
+      <x:String>UiPath.XPS.Activities</x:String>
+      <x:String>UiPath.Script.Activities</x:String>
+      <x:String>UiPath.Script.Activities.PowerShell</x:String>
+      <x:String>UiPath.Script.Activities.AutoHotKey</x:String>
+      <x:String>UiPath.Web</x:String>
+      <x:String>UiPath.Web.Activities</x:String>
+      <x:String>UiPath.JSON.Activities</x:String>
+      <x:String>UiPath.REST.Activities</x:String>
+      <x:String>UiPath.SOAP.Activities</x:String>
+      <x:String>UiPath.XML.Activities</x:String>
+      <x:String>GoogleSpreadsheet</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Core</AssemblyReference>
+      <AssemblyReference>UiPath.Core.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.OrchestratorClient</AssemblyReference>
+      <AssemblyReference>UiPath.Word</AssemblyReference>
+      <AssemblyReference>UiPath.Credentials.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Database.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.PDF.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Script.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Web</AssemblyReference>
+      <AssemblyReference>UiPath.Web.Activities</AssemblyReference>
+      <AssemblyReference>GoogleSpreadsheet.Activities</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+      <AssemblyReference>UiPath.IntelligentOCR</AssemblyReference>
+      <AssemblyReference>UiPath.Python</AssemblyReference>
+      <AssemblyReference>UiPath.Cryptography</AssemblyReference>
+      <AssemblyReference>UiPath.Java.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="BusinessLogic" sap2010:WorkflowViewState.IdRef="Sequence_4">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:Int32" Name="TempLoopVar" />
+      <Variable x:TypeArguments="x:Boolean" Name="FlagVar" />
+      <Variable x:TypeArguments="x:String" Name="EmbedCoordIntoHTML" />
+      <Variable x:TypeArguments="x:Int32" Name="CheckDTEndorNot" />
+    </Sequence.Variables>
+    <Assign DisplayName="Initial Value for FlagVar" sap2010:WorkflowViewState.IdRef="Assign_14">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:Boolean">[FlagVar]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign DisplayName="Initial Value for TempLoopVar" sap2010:WorkflowViewState.IdRef="Assign_15">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:Int32">[TempLoopVar]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:Int32">0</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign DisplayName="Initial Value for Var 'CheckDTEndorNot'" sap2010:WorkflowViewState.IdRef="Assign_16">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:Int32">[CheckDTEndorNot]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:Int32">0</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:ForEachRow DataTable="[DtCsv]" DisplayName="For each Coordinate in Input File (CSV file)" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+      <ui:ForEachRow.Body>
+        <ActivityAction x:TypeArguments="sd:DataRow">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Looping for each cooordinates" sap2010:WorkflowViewState.IdRef="Sequence_2">
+            <Assign DisplayName="CheckDTEndorNot" sap2010:WorkflowViewState.IdRef="Assign_17">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:Int32">[CheckDTEndorNot]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:Int32">[CheckDTEndorNot+1]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign DisplayName="Assign 'TempLoopVar' " sap2010:WorkflowViewState.IdRef="Assign_13">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:Int32">[TempLoopVar]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:Int32">[TempLoopVar+1]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <If Condition="[FlagVar=false]" DisplayName="Check  If current coord is the 1st Coordinate" sap2010:WorkflowViewState.IdRef="If_1">
+              <If.Then>
+                <Assign DisplayName="ReAssign FlagVar" sap2010:WorkflowViewState.IdRef="Assign_7">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:Boolean">[FlagVar]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                  </Assign.Value>
+                </Assign>
+              </If.Then>
+              <If.Else>
+                <Assign DisplayName="Concate X &amp; Y Coord with &quot;,&quot; Separator" sap2010:WorkflowViewState.IdRef="Assign_6">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">[EmbedCoordIntoHTML]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">[EmbedCoordIntoHTML+","]</InArgument>
+                  </Assign.Value>
+                </Assign>
+              </If.Else>
+            </If>
+            <Assign DisplayName="Combine X,Y with Latitude &amp; Longtitude tags" sap2010:WorkflowViewState.IdRef="Assign_4">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[EmbedCoordIntoHTML]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[EmbedCoordIntoHTML+"{lat:"+row(0).ToString+",lng:"+row(1).ToString+"}"]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <If Condition="[TempLoopVar=CoordLimitInHTML or CheckDTEndorNot=DtCsv.Rows.Count]" DisplayName="Till Pagelimit coordinates" sap2010:WorkflowViewState.IdRef="If_3">
+              <If.Then>
+                <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke HTMLCreate workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="SubCodes\HTMLCreate.xaml">
+                  <ui:InvokeWorkflowFile.Arguments>
+                    <InOutArgument x:TypeArguments="x:Int32" x:Key="TempLoopVar">[TempLoopVar]</InOutArgument>
+                    <OutArgument x:TypeArguments="x:Boolean" x:Key="FlagVar">[FlagVar]</OutArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="FilePath">[FilePath]</InArgument>
+                    <InOutArgument x:TypeArguments="x:Int32" x:Key="HtmlNo">[HtmlNo]</InOutArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="OutputFilePath">[OutputFilePath]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="GoogleAPI">[GoogleAPI]</InArgument>
+                    <InOutArgument x:TypeArguments="x:String" x:Key="EmbedCoordIntoHTML">[EmbedCoordIntoHTML]</InOutArgument>
+                    <InOutArgument x:TypeArguments="x:String" x:Key="HTMLTemplateAsString">[HTMLTemplateAsString]</InOutArgument>
+                    <InArgument x:TypeArguments="sn:WebClient" x:Key="TemplateDownload">[TemplateDownload]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="TemplatePath">[TemplatePath]</InArgument>
+                  </ui:InvokeWorkflowFile.Arguments>
+                </ui:InvokeWorkflowFile>
+              </If.Then>
+            </If>
+          </Sequence>
+        </ActivityAction>
+      </ui:ForEachRow.Body>
+    </ui:ForEachRow>
+    <sads:DebugSymbol.Symbol>d1hQOlxJTkJMRFxEaWdpdGFsXFJQQVwwNy1PdGhlcnNcVWlQYXRoIEhhY2thdGhvblxNYXBWaWV3IFJlbmRlcmVyXFN1YkNvZGVzXEhUTUxMb2dpYy54YW1sLHsD5gEOAgEBggEFiQEOAgFAigEFkQEOAgE8kgEFmQEOAgE4mgEF5AEVAgEChwExhwE2AgFDhAEyhAE7AgFBjwEvjwEwAgE/jAEwjAE9AgE9lwEvlwEwAgE7lAEwlAFBAgE5mgEemgEnAgE2oAEL4QEWAgEDoQENqAEWAgExqQENsAEWAgEssQENxgESAgEgxwENzgEWAgEczwEN4AESAgEEpgE3pgFKAgE0owE4owFJAgEyrgE3rgFGAgEvqwE4qwFFAgEtsQEbsQEsAgEhswERugEaAgEovQERxAEaAgEjzAE4zAGAAQIBH8kBOckBTQIBHc8BG88BXwIBBdEBEd4BKQIBBrgBPbgBQQIBK7UBPrUBRwIBKcIBPMIBVAIBJr8BPb8BUQIBJNQBTtQBVwIBGtsBWdsBawIBGNwBUdwBXwIBFtcBU9cBYwIBFNkBWtkBbgIBEtYBTdYBVQIBENgBTtgBWQIBDtMBUtMBXwIBDNEBwwHRAd0BAgEL1QFN1QFXAgEJ2gFc2gFyAgEH</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="Assign_14" sap:VirtualizedContainerService.HintSize="561,60" />
+      <sap2010:ViewStateData Id="Assign_15" sap:VirtualizedContainerService.HintSize="561,60" />
+      <sap2010:ViewStateData Id="Assign_16" sap:VirtualizedContainerService.HintSize="561,60" />
+      <sap2010:ViewStateData Id="Assign_17" sap:VirtualizedContainerService.HintSize="509,60" />
+      <sap2010:ViewStateData Id="Assign_13" sap:VirtualizedContainerService.HintSize="509,60" />
+      <sap2010:ViewStateData Id="Assign_7" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="Assign_6" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="509,208">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_4" sap:VirtualizedContainerService.HintSize="509,60" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_3" sap:VirtualizedContainerService.HintSize="314,87" />
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="509,235" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="531,907">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ForEachRow_1" sap:VirtualizedContainerService.HintSize="561,1055" />
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="583,1479">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="BusinessLogic_1" sap:VirtualizedContainerService.HintSize="623,1639" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

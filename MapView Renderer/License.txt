@@ -1,0 +1,9 @@
+{{ MapView Renderer }}
+Copyright (C) {{ 2018 }}  {{ ATKINS Member of SNC-LAVALIN Group }}
+
+This programme was created as an entry for the UiPath PowerUp Automation Hackathon. 
+You can redistribute it and/or modify after prior consent of the Atkins India Digital Team based in Bengaluru.
+
+This programme is created in the hope that it will be useful with applicability in the GeoSpatial domains.
+
+
